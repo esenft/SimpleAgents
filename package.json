@@ -1,0 +1,15 @@
+{
+  "name": "simple-agents-airfare-logger",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node index.mjs",
+    "start:001": "node index001.mjs"
+  },
+  "dependencies": {
+    "@openai/agents": "^0.4.15",
+    "dotenv": "^16.6.1",
+    "zod": "^3.25.76"
+  }
+}
