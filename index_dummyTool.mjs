@@ -1,13 +1,21 @@
+// This code creates an AI agent that can call custom tools in response to user requests
+// Demonstrates how to define and execute a local tool ("searchTool") that the agent can call
+// Logs the agent's execution flow at multiple levels (high-level and low-level stream events)
+
 import 'dotenv/config';
 import { Agent, Runner, tool } from '@openai/agents';
 import { z } from 'zod';
+
+
 
 // This is the prompt we send to the agent.
 // It explicitly asks to call searchTool.
 const userInput = 'Please call searchTool for "airfare from Boston to Denver" and then explain the tool result.';
 
-// Local tool that always returns "Hello World".
-// We log inside execute() so you can see exactly what the LLM passed in.
+
+
+// searchTool: a local dummy tool that takes a search query as an input and always returns "Hello World"
+// This tool logs when it's called and what the LLM passed in so we can see exactly what the LLM passed in
 const searchTool = tool({
   name: 'searchTool',
   description: 'Demo local search tool. Always returns "Hello World".',
@@ -22,7 +30,10 @@ const searchTool = tool({
   },
 });
 
-// One agent with one local tool.
+
+
+// Creats an agent called LocalToolAgent that is configured with instructions to use the searchTool when the user asks to search
+// We tell the agent that the local tool (searchTool) is available 
 const agent = new Agent({
   name: 'LocalToolAgent',
   instructions:
@@ -30,6 +41,9 @@ const agent = new Agent({
   tools: [searchTool],
 });
 
+
+
+// Constructing a runner that will orchestrate the agent execution and log lifecycle events
 const runner = new Runner();
 
 function formatJson(value) {
@@ -40,7 +54,10 @@ function formatJson(value) {
   }
 }
 
+
+
 // Runner lifecycle logs (high-level view).
+// Runner logs when the agent starts/ends, when tools are called & their results returned, and streaming events from the LLM at at low level 
 function registerRunnerLogs() {
   runner.on('agent_start', (_context, runningAgent) => {
     console.log(`[Agent Start] ${runningAgent.name}`);
