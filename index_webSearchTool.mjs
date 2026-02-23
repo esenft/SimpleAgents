@@ -1,3 +1,7 @@
+// This code creates an AI agent that performs actual web searches to find flight prices
+// Demonstrates how to integrate a real web search tool (not a dummy one like the previous example)
+// Logs the entire execution flow to show when tools are called and what results are returned
+
 /* This example uses the built-in web search tool, which is a local tool that makes real HTTP requests to a search engine and returns actual search results. The agent is given instructions to use this tool to find airfare information based on the user's request. The runner lifecycle logs and streamed events provide insight into when the agent starts, when the tool is called, what input the LLM provides to the tool, and what results are returned from the tool before the LLM produces its final response.
 */
 import 'dotenv/config';
